@@ -61,6 +61,8 @@ class EventManager implements EventManagerContract
             DB::transaction(function () use ($message) {
                 $email = Email::where('message_id', $message->mail->messageId)->sole();
                 $email->bounce()->create([
+                    'campaign_id'           => $email->campaign_id,
+                    'subscriber_id'         => $email->subscriber_id,
                     'bounce_type'           => $message->bounce->bounceType ?? null,
                     'bounce_sub_type'       => $message->bounce->bounceSubType ?? null,
                     'feedback_id'           => $message->bounce->feedbackId ?? null,
@@ -99,6 +101,8 @@ class EventManager implements EventManagerContract
             DB::transaction(function () use ($message) {
                 $email = Email::where('message_id', $message->mail->messageId)->sole();
                 $email->complaint()->create([
+                    'campaign_id'                   => $email->campaign_id,
+                    'subscriber_id'                 => $email->subscriber_id,
                     'feedback_id'                   => $message->complaint->feedbackId ?? null,
                     'complaint_sub_type'            => $message->complaint->complaintSubType ?? null,
                     'user_agent'                    => $message->complaint->userAgent ?? null,
@@ -134,6 +138,8 @@ class EventManager implements EventManagerContract
             DB::transaction(function () use ($message) {
                 $email = Email::where('message_id', $message->mail->messageId)->sole();
                 $email->delivery()->create([
+                    'campaign_id'   => $email->campaign_id,
+                    'subscriber_id' => $email->subscriber_id,
                     'delivered_at'  => $message->delivery->timestamp ? new Carbon($message->delivery->timestamp) : null,
                 ]);
                 $email->has_delivery = true;
@@ -165,6 +171,8 @@ class EventManager implements EventManagerContract
             DB::transaction(function () use ($message) {
                 $email = Email::where('message_id', $message->mail->messageId)->sole();
                 $email->send()->create([
+                    'campaign_id'           => $email->campaign_id,
+                    'subscriber_id'         => $email->subscriber_id,
                     'sent_at'  => $message->mail->timestamp ? new Carbon($message->mail->timestamp) : null,
                 ]);
                 $email->has_send = true;
@@ -196,6 +204,8 @@ class EventManager implements EventManagerContract
             DB::transaction(function () use ($message) {
                 $email = Email::where('message_id', $message->mail->messageId)->sole();
                 $email->reject()->create([
+                    'campaign_id'           => $email->campaign_id,
+                    'subscriber_id'         => $email->subscriber_id,
                     'reason'                => $message->reject->reason ?? null,
                     'rejected_at'           => $message->mail->timestamp ? new Carbon($message->mail->timestamp) : null,
                 ]);
@@ -228,6 +238,8 @@ class EventManager implements EventManagerContract
             DB::transaction(function () use ($message) {
                 $email = Email::where('message_id', $message->mail->messageId)->sole();
                 $email->opens()->create([
+                    'campaign_id'           => $email->campaign_id,
+                    'subscriber_id'         => $email->subscriber_id,
                     'user_agent'          => $message->open->userAgent ?? null,
                     'opened_at'           => $message->open->timestamp ? new Carbon($message->open->timestamp) : null,
                 ]);
@@ -260,6 +272,8 @@ class EventManager implements EventManagerContract
             DB::transaction(function () use ($message) {
                 $email = Email::where('message_id', $message->mail->messageId)->sole();
                 $email->clicks()->create([
+                    'campaign_id'       => $email->campaign_id,
+                    'subscriber_id'     => $email->subscriber_id,
                     'user_agent'        => $message->click->userAgent ?? null,
                     'link'              => $message->click->link ?? null,
                     'link_tags'         => $message->click->linkTags ? (array) $message->click->linkTags : null,

@@ -40,6 +40,8 @@ class EmailBounce extends Model
      * @var array
      */
     protected $fillable = [
+        'campaign_id',
+        'subscriber_id',
         'message_id',
         'bounce_type',
         'bounce_sub_type',

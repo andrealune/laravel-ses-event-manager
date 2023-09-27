@@ -40,6 +40,8 @@ class EmailDelivery extends Model
      * @var array
      */
     protected $fillable = [
+        'campaign_id',
+        'subscriber_id',
         'message_id',
         'delivered_at',
     ];

@@ -40,6 +40,8 @@ class EmailComplaint extends Model
      * @var array
      */
     protected $fillable = [
+        'campaign_id',
+        'subscriber_id',
         'message_id',
         'feedback_id',
         'complaint_sub_type',

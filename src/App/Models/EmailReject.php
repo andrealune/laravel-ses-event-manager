@@ -40,6 +40,8 @@ class EmailReject extends Model
      * @var array
      */
     protected $fillable = [
+        'campaign_id',
+        'subscriber_id',
         'message_id',
         'reason',
         'rejected_at',

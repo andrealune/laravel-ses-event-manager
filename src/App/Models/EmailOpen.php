@@ -40,6 +40,8 @@ class EmailOpen extends Model
      * @var array
      */
     protected $fillable = [
+        'campaign_id',
+        'subscriber_id',
         'message_id',
         'user_agent',
         'opened_at',

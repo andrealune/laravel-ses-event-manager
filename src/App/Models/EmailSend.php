@@ -40,6 +40,8 @@ class EmailSend extends Model
      * @var array
      */
     protected $fillable = [
+        'campaign_id',
+        'subscriber_id',
         'message_id',
         'sent_at',
     ];
